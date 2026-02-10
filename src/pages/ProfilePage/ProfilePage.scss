@@ -1,0 +1,19 @@
+.profile {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: 64px;
+	}
+
+	&__title {
+		font-weight: 700;
+		font-size: 48px;
+		line-height: 117%;
+		color: var(--white-color);
+	}
+
+	&__nav {
+		display: flex;
+		gap: 64px;
+	}
+}

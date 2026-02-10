@@ -1,0 +1,23 @@
+.footer {
+
+	&__social-list {
+		margin-top: 160px;
+		display: flex;
+		gap: 24px;
+		padding: 42px 0;
+		justify-content: flex-end;
+	}
+
+	&__social-link {
+		color: var(--white-color);
+		@include transition(color);
+
+		@include hover {
+			color: var(--primary-color);
+		}
+
+		&:active {
+			color: var(--primary-color);
+		}
+	}
+}

@@ -1,0 +1,14 @@
+.logout-confirm-modal {
+	&__title {
+		@include modal-title;
+	}
+
+	&__message {
+		@include modal-text;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 24px;
+	}
+}

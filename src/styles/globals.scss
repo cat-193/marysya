@@ -1,0 +1,88 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font-family);
+	line-height: 1.6;
+}
+
+img,
+video {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	display: block;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	border-radius: inherit;
+}
+
+ul,
+ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.container {
+	max-width: toRem(1320);
+	margin: 0 auto;
+	padding: 0 toRem(20);
+
+	@include mobile {
+		padding: 0 16px;
+	}
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.loading {
+	@include flex-center;
+	padding: 40px;
+	font-size: 18px;
+}
+
+.image-placeholder {
+	text-align: center;
+	@include flex-center;
+	border-radius: inherit;
+	background-color: #616161;
+	width: 100%;
+	height: 100%;
+	color: var(--white-color);
+	font-size: 30px;
+
+	&--small {
+		width: 40px;
+		height: 52px;
+		font-size: 12px;
+		border-radius: 4px;
+	}
+}
+
+.error-load {
+	color: var(--white-color);
+	font-size: 40px;
+}

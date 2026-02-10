@@ -1,0 +1,41 @@
+.movie-characteristics {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 133%;
+		color: rgba(255, 255, 255, 0.7);
+
+	}
+
+	&__title {
+		font-weight: 700;
+		font-size: 48px;
+		line-height: 117%;
+		color: var(--white-color);
+		margin-bottom: 16px;
+	}
+
+	&--small {
+		gap: 8px;
+
+		.movie-characteristics__wrapper {
+			gap: 12px;
+			font-size: 14px;
+			line-height: 143%;
+		}
+
+		.movie-characteristics__title {
+			font-size: 18px;
+			line-height: 133%;
+			margin-bottom: 0;
+		}
+	}
+}

@@ -1,0 +1,32 @@
+.rating-badge {
+	@include flex-center;
+	gap: 4px;
+	border-radius: 16px;
+	padding: 4px 12px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 133%;
+	color: var(--white-color);
+
+	&--excellent {
+		background: #a59400;
+	}
+
+	&--good {
+		background: #308e21;
+	}
+
+	&--average {
+		background: #777;
+	}
+
+	&--poor, &--no-rating {
+		background: #c82020;
+	}
+
+	&--small {
+		padding: 2px 8px;
+		font-size: 12px;
+	}
+
+}

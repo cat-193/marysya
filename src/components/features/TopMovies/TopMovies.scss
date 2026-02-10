@@ -1,0 +1,11 @@
+.top-movies {
+	padding-top: 50px;
+
+	&__title {
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 120%;
+		color: var(--white-color);
+		margin-bottom: 64px;
+	}
+}

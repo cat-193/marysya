@@ -1,0 +1,165 @@
+@use "sass:math";
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease, $delay: 0s) {
+	transition: #{$property} #{$duration} #{$timing} #{$delay};
+}
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-column-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+@mixin modal-title {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 133%;
+	color: var(--black-color);
+	margin-bottom: 24px;
+}
+
+@mixin modal-text {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 133%;
+	text-align: center;
+	color: var(--black-color);
+	margin-bottom: 24px;
+}
+
+@mixin flex-between {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@mixin text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@mixin list {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	row-gap: 64px;
+	column-gap: 40px;
+}
+
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+@mixin mobile {
+	@media (max-width: 767.98px) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (max-width: 1023.98px) {
+		@content;
+	}
+}
+
+@function toRem($px, $current: 16) {
+	$result: math.div($px, $current) + rem;
+	@return $result;
+}
+
+@function toEm($px, $current: 16) {
+	$result: math.div($px, $current) + em;
+	@return $result;
+}
+
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: 1920, $widthTo: 375, $keepSize: 0, $isContainer: 0) {
+	@if ($startSize==0) {
+		$startSize: 0.000001;
+	}
+
+	@if ($minSize==0) {
+		$minSize: 0.000001;
+	}
+
+	// Для calc();
+	$addSize: math.div($startSize - $minSize, 16);
+
+	@if ($widthFrom ==variables.$containerWidth and variables.$maxWidthContainer ==0) {
+		$widthFrom: variables.$maxWidth;
+	}
+
+	// Брейк поинты в EM
+	$widthFromMedia: toEm($widthFrom);
+	$widthToMedia: toEm($widthTo);
+
+	// Формула плавающего значения
+	// Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+	$slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+	$yIntersection: -$widthTo * $slope + $minSize;
+
+	@if ($yIntersection==0) {
+		$yIntersection: 0.000001;
+	}
+
+	$flyValue: #{toRem($yIntersection)}" + "#{$slope * 100}vw;
+
+	// Получение значения свойства
+	$propertyValue: #{"clamp(" toRem($minSize) "," $flyValue "," toRem($startSize) ")"};
+
+	// Если отрицательные значения
+	@if ($minSize > $startSize) {
+		$propertyValue: #{"clamp(" toRem($startSize) "," $flyValue "," toRem($minSize) ")"};
+	}
+
+	@if ($isContainer !=1) {
+
+		// Устанавливаем значение по умолчанию
+		@if $keepSize !=1 and $keepSize !=3 {
+			@media (min-width: $widthFromMedia) {
+				#{$property}: toRem($startSize);
+			}
+		}
+
+		// Адаптируем размер в промежутке между указанными ширинами вьюпорта
+		@media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+			#{$property}: $propertyValue;
+		}
+
+		@if $keepSize !=1 and $keepSize !=2 {
+			@media (max-width: $widthToMedia) {
+				#{$property}: toRem($minSize);
+			}
+		}
+	}
+
+	@else {
+		@if $keepSize !=1 and $keepSize !=3 {
+			@container (width > #{$widthFromMedia}) {
+				#{$property}: toRem($startSize);
+			}
+		}
+
+		// Адаптируем размер в промежутке между указанными ширинами вьюпорта
+		@container (#{$widthFromMedia} > width > #{$widthToMedia}) {
+			#{$property}: $propertyValue;
+		}
+
+		@if $keepSize !=1 and $keepSize !=2 {
+			@container (width < #{$widthToMedia}) {
+				#{$property}: toRem($minSize);
+			}
+		}
+	}
+}

@@ -1,0 +1,21 @@
+.genre__button-back {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	font-weight: 700;
+	font-size: 48px;
+	line-height: 117%;
+	color: #fff;
+	padding: 0;
+	margin-bottom: 64px;
+}
+
+.genre__show-more {
+	margin: 64px auto;
+}
+
+.movies-by-genre {
+	.container {
+		min-height: 100vh;
+	}
+}

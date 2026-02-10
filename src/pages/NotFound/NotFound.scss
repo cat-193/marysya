@@ -1,0 +1,39 @@
+.not-found {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&__content {
+		text-align: center;
+		color: var(--white-color);
+		max-width: 500px;
+	}
+
+	&__number {
+		font-size: 120px;
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+
+	&__title {
+		font-size: 32px;
+		margin-bottom: 16px;
+	}
+
+	&__description {
+		font-size: 18px;
+		margin-bottom: 32px;
+		line-height: 1.5;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 16px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	&__link {
+		text-decoration: none;
+	}
+}
