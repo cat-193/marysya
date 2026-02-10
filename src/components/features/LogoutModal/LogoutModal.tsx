@@ -37,7 +37,7 @@ export const LogoutConfirmModal = memo(() => {
 			onClose={handleClose}
 			className='auth-modal-container logout-confirm-modal'
 		>
-			<img className='auth-modal__logo' src='/logo-auth.svg' alt='logo' />
+			<img className='auth-modal__logo' src='logo-auth.svg' alt='logo' />
 			<div className='logout-confirm-modal__content'>
 				<h2 className='logout-confirm-modal__title'>Выход из аккаунта</h2>
 				<p className='logout-confirm-modal__message'>
