@@ -50,8 +50,7 @@
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	row-gap: 64px;
-	column-gap: 40px;
+	gap: 64px 40px;
 }
 
 @mixin hover {
@@ -63,40 +62,42 @@
 }
 
 @mixin mobile {
-	@media (max-width: 767.98px) {
+	@media (width <=767.98px) {
 		@content;
 	}
 }
 
 @mixin tablet {
-	@media (max-width: 1023.98px) {
+	@media (width <=1023.98px) {
 		@content;
 	}
 }
 
 @function toRem($px, $current: 16) {
 	$result: math.div($px, $current) + rem;
+
 	@return $result;
 }
 
 @function toEm($px, $current: 16) {
 	$result: math.div($px, $current) + em;
+
 	@return $result;
 }
 
 @mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: 1920, $widthTo: 375, $keepSize: 0, $isContainer: 0) {
-	@if ($startSize==0) {
+	@if $startSize==0 {
 		$startSize: 0.000001;
 	}
 
-	@if ($minSize==0) {
+	@if $minSize==0 {
 		$minSize: 0.000001;
 	}
 
 	// Для calc();
 	$addSize: math.div($startSize - $minSize, 16);
 
-	@if ($widthFrom ==variables.$containerWidth and variables.$maxWidthContainer ==0) {
+	@if $widthFrom ==variables.$containerWidth and variables.$maxWidthContainer ==0 {
 		$widthFrom: variables.$maxWidth;
 	}
 
@@ -109,7 +110,7 @@
 	$slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
 	$yIntersection: -$widthTo * $slope + $minSize;
 
-	@if ($yIntersection==0) {
+	@if $yIntersection==0 {
 		$yIntersection: 0.000001;
 	}
 
@@ -119,11 +120,11 @@
 	$propertyValue: #{"clamp(" toRem($minSize) "," $flyValue "," toRem($startSize) ")"};
 
 	// Если отрицательные значения
-	@if ($minSize > $startSize) {
+	@if $minSize >$startSize {
 		$propertyValue: #{"clamp(" toRem($startSize) "," $flyValue "," toRem($minSize) ")"};
 	}
 
-	@if ($isContainer !=1) {
+	@if $isContainer !=1 {
 
 		// Устанавливаем значение по умолчанию
 		@if $keepSize !=1 and $keepSize !=3 {

@@ -1,5 +1,12 @@
 import { ICONS } from '@/constants/icons';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import {
+	memo,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	useLayoutEffect,
+} from 'react';
 import './Modal.scss';
 
 interface ModalProps {
@@ -54,12 +61,32 @@ function Modal({ isOpen, onClose, children, className = '' }: ModalProps) {
 		[handleClose],
 	);
 
+	// Управление скроллом - упрощенная версия
+	useLayoutEffect(() => {
+		if (isOpen) {
+			// Сохраняем ширину скроллбара
+			const scrollBarWidth =
+				window.innerWidth - document.documentElement.clientWidth;
+			document.body.style.overflow = 'hidden';
+			document.body.style.paddingRight = `${scrollBarWidth}px`;
+		} else {
+			// Снимаем блокировку
+			document.body.style.overflow = '';
+			document.body.style.paddingRight = '';
+		}
+
+		return () => {
+			// Cleanup на всякий случай
+			document.body.style.overflow = '';
+			document.body.style.paddingRight = '';
+		};
+	}, [isOpen]);
+
 	useEffect(() => {
 		if (isOpen) {
 			setShouldRender(true);
 			previousActiveElement.current = document.activeElement as HTMLElement;
 			document.addEventListener('keydown', handleKeyDown);
-			document.body.style.overflow = 'hidden';
 
 			setTimeout(() => {
 				setIsVisible(true);
@@ -76,15 +103,16 @@ function Modal({ isOpen, onClose, children, className = '' }: ModalProps) {
 		} else {
 			setIsVisible(false);
 
-			setTimeout(() => {
+			const timeoutId = setTimeout(() => {
 				setShouldRender(false);
 				previousActiveElement.current?.focus();
 			}, 300);
+
+			return () => clearTimeout(timeoutId);
 		}
 
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
-			document.body.style.overflow = 'unset';
 		};
 	}, [isOpen, handleKeyDown]);
 
