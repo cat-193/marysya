@@ -1,5 +1,5 @@
 import { inputIcons } from '@/constants/inputIcons';
-import { forwardRef, memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import './Input.scss';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -13,17 +13,29 @@ const Input = memo(
 			const icon = inputIcons[type as keyof typeof inputIcons];
 
 			return (
-				<div className={`input-wrapper ${className}`}>
+				<div
+					className={`input-wrapper ${className}`}
+					data-testid='input-wrapper'
+				>
 					<div className='input-wrapper__box'>
-						{icon && <span className='input-icon'>{icon}</span>}
+						{icon && (
+							<span className='input-icon' data-testid='input-icon'>
+								{icon}
+							</span>
+						)}
 						<input
 							ref={ref}
 							type={type}
 							className={`input input--${type} ${error ? 'input--error' : ''}`}
+							data-testid='input-field'
 							{...props}
 						/>
 					</div>
-					{error && <span className='input__error'>{error}</span>}
+					{error && (
+						<span className='input__error' data-testid='input-error'>
+							{error}
+						</span>
+					)}
 				</div>
 			);
 		},

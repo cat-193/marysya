@@ -2,15 +2,12 @@
 export const getErrorMessage = (error: unknown): string => {
 	if (typeof error === 'string') return error;
 
-	// Проверяем, что это объект
 	if (typeof error !== 'object' || error === null) {
 		return 'Произошла неизвестная ошибка';
 	}
 
-	// Приводим к типу с индексной сигнатурой для безопасного доступа
 	const errorObj = error as Record<string, unknown>;
 
-	// Проверяем HTTP статусы
 	const status = errorObj.status;
 	if (typeof status === 'number') {
 		switch (status) {
@@ -29,7 +26,6 @@ export const getErrorMessage = (error: unknown): string => {
 		}
 	}
 
-	// Получаем сообщение об ошибке
 	const message =
 		(typeof errorObj.message === 'string' && errorObj.message) ||
 		(typeof errorObj.data === 'object' &&

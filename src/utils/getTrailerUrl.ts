@@ -2,8 +2,6 @@ export function getTrailerUrl(
 	trailerUrl: string | null,
 	trailerYoutubeId: string | null,
 ) {
-	console.log(trailerUrl);
-
 	if (trailerYoutubeId) {
 		return trailerYoutubeId;
 	}
