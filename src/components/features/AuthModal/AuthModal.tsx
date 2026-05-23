@@ -34,7 +34,7 @@ function AuthModal() {
 				onClose={handleClose}
 				className='auth-modal-container'
 			>
-				<img className='auth-modal__logo' src='logo-auth.svg' alt='logo' />
+				<img className='auth-modal__logo' src='/logo-auth.svg' alt='logo' />
 				{isLogin ? (
 					<LoginForm onSwitchMode={handleSwitchMode} onClose={handleClose} />
 				) : (

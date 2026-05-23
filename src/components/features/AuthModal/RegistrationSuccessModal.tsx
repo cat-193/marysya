@@ -27,7 +27,7 @@ function RegistrationSuccessModal() {
 			onClose={handleClose}
 			className='auth-modal-container registration-success'
 		>
-			<img className='auth-modal__logo' src='logo-auth.svg' alt='logo' />
+			<img className='auth-modal__logo' src='/logo-auth.svg' alt='logo' />
 			<div className='registration-success__content'>
 				<h2 className='registration-success__title'>Регистрация завершена</h2>
 				<p className='registration-success__message'>
