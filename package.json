@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:analyze": "vite build --mode analyze",
+    "analyze": "analyze",
     "lint": "eslint .",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "lint:styles": "stylelint \"src/**/*.scss\"",
@@ -68,6 +70,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^8.0.14",
+    "vite-bundle-analyzer": "^1.3.8",
     "vitest": "^4.1.7"
   }
 }

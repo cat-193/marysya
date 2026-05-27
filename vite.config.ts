@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import { defineConfig } from 'vite';
+import { analyzer } from 'vite-bundle-analyzer';
 // import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ mode }) => {
@@ -8,7 +9,16 @@ export default defineConfig(({ mode }) => {
 
 	return {
 		base: isProd ? '/marysya/' : '/',
-		plugins: [react()],
+		plugins: [
+			react(),
+			analyzer({
+				openAnalyzer: true, // автоматически открыть браузер
+				analyzerMode: 'static', // 'server', 'static', 'json', 'disabled'
+				reportTitle: 'Bundle Analysis',
+				fileName: 'bundle-analysis',
+				exclude: /node_modules/,
+			}),
+		],
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, './src'),
